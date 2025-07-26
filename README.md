@@ -1,0 +1,2 @@
+# Beauta
+Makeup recommendation app 
