@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Beauta - Personalized Beauty Recommendations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Get personalized makeup recommendations based on your unique features, skin type, and preferences. Discover your perfect beauty routine!">
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element" style="--delay: 0s; --duration: 20s; --x: 10%; --y: 20%;">
+            <i class="fas fa-sparkles"></i>
+        </div>
+        <div class="floating-element" style="--delay: 2s; --duration: 25s; --x: 80%; --y: 60%;">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="floating-element" style="--delay: 4s; --duration: 18s; --x: 60%; --y: 80%;">
+            <i class="fas fa-heart"></i>
+        </div>
+        <div class="floating-element" style="--delay: 6s; --duration: 22s; --x: 20%; --y: 70%;">
+            <i class="fas fa-gem"></i>
+        </div>
+        <div class="floating-element" style="--delay: 8s; --duration: 24s; --x: 90%; --y: 30%;">
+            <i class="fas fa-magic"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-decoration">
+                <div class="decoration-line left"></div>
+                <div class="decoration-dot"></div>
+                <div class="decoration-line right"></div>
+            </div>
+            <h1><i class="fas fa-magic"></i> Beauta <i class="fas fa-sparkles"></i></h1>
+            <p>✨ Discover your perfect beauty routine with AI-powered recommendations ✨</p>
+            <div class="header-stats">
+                <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <span>10K+ Happy Users</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <span>4.9/5 Rating</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-palette"></i>
+                    <span>500+ Products</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Filter Controls -->
+        <div class="filter-controls" id="filterControls" style="display: none;">
+            <div class="filter-header">
+                <h3><i class="fas fa-filter"></i> Filter & Search</h3>
+                <p>Refine your recommendations to find exactly what you're looking for</p>
+            </div>
+            
+            <div class="filter-section">
+                <h4><i class="fas fa-tags"></i> Filter by Category</h4>
+                <div class="filter-buttons" id="categoryFilters">
+                    <button class="filter-btn active" data-category="all">
+                        <i class="fas fa-th-large"></i> All Categories
+                    </button>
+                    <button class="filter-btn" data-category="makeup">
+                        <i class="fas fa-palette"></i> Makeup
+                    </button>
+                    <button class="filter-btn" data-category="skincare">
+                        <i class="fas fa-spa"></i> Skincare
+                    </button>
+                    <button class="filter-btn" data-category="body">
+                        <i class="fas fa-hand-sparkles"></i> Body Care
+                    </button>
+                    <button class="filter-btn" data-category="fragrance">
+                        <i class="fas fa-spray-can"></i> Fragrance
+                    </button>
+                    <button class="filter-btn" data-category="tools">
+                        <i class="fas fa-brush"></i> Tools & Accessories
+                    </button>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h4><i class="fas fa-search"></i> Search Products</h4>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search for specific products..." class="search-input">
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h4><i class="fas fa-sort"></i> Sort by</h4>
+                <select id="sortSelect" class="sort-select">
+                    <option value="category">Category</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name A-Z</option>
+                </select>
+            </div>
+        </div>
+
+        <form id="preferencesForm">
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>Skin Information</h2>
+                    <p>Tell us about your skin to get the perfect foundation match</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="skinType">
+                        <i class="fas fa-tint"></i> Skin Type
+                    </label>
+                    <select id="skinType" required>
+                        <option value="">Select your skin type</option>
+                        <option value="oily">Oily</option>
+                        <option value="dry">Dry</option>
+                        <option value="combination">Combination</option>
+                        <option value="sensitive">Sensitive</option>
+                        <option value="normal">Normal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="skinTone">
+                        <i class="fas fa-palette"></i> Skin Tone
+                    </label>
+                    <select id="skinTone" required>
+                        <option value="">Select your skin tone</option>
+                        <option value="fair">Fair</option>
+                        <option value="light">Light</option>
+                        <option value="medium">Medium</option>
+                        <option value="olive">Olive</option>
+                        <option value="dark">Dark</option>
+                        <option value="deep">Deep</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="undertone">
+                        <i class="fas fa-sun"></i> Undertone
+                    </label>
+                    <select id="undertone" required>
+                        <option value="">Select your undertone</option>
+                        <option value="warm">Warm (Yellow/Golden)</option>
+                        <option value="cool">Cool (Pink/Blue)</option>
+                        <option value="neutral">Neutral</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-eye"></i>
+                    <h2>Features</h2>
+                    <p>Help us understand your unique features for better recommendations</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eyeColor">
+                        <i class="fas fa-eye"></i> Eye Color
+                    </label>
+                    <select id="eyeColor" required>
+                        <option value="">Select your eye color</option>
+                        <option value="brown">Brown</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="hazel">Hazel</option>
+                        <option value="gray">Gray</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hairColor">
+                        <i class="fas fa-cut"></i> Hair Color
+                    </label>
+                    <select id="hairColor" required>
+                        <option value="">Select your hair color</option>
+                        <option value="black">Black</option>
+                        <option value="brown">Brown</option>
+                        <option value="blonde">Blonde</option>
+                        <option value="red">Red</option>
+                        <option value="gray">Gray</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-heart"></i>
+                    <h2>Preferences</h2>
+                    <p>Customize your recommendations based on your lifestyle and budget</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="budget">
+                        <i class="fas fa-dollar-sign"></i> Budget Range
+                    </label>
+                    <select id="budget" required>
+                        <option value="">Select your budget</option>
+                        <option value="drugstore">Drugstore ($5-$20)</option>
+                        <option value="mid-range">Mid-range ($20-$50)</option>
+                        <option value="high-end">High-end ($50+)</option>
+                        <option value="luxury">Luxury ($100+)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="occasion">
+                        <i class="fas fa-calendar-alt"></i> Occasion
+                    </label>
+                    <select id="occasion" required>
+                        <option value="">Select the occasion</option>
+                        <option value="everyday">Everyday/Natural</option>
+                        <option value="work">Work/Professional</option>
+                        <option value="special">Special Events</option>
+                        <option value="party">Party/Night Out</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="allergies">
+                        <i class="fas fa-exclamation-triangle"></i> Allergies/Sensitivities
+                    </label>
+                    <textarea id="allergies" placeholder="List any allergies or sensitivities (e.g., fragrance, certain ingredients)"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-magic"></i> Get My Recommendations! <i class="fas fa-sparkles"></i>
+            </button>
+        </form>
+
+        <div id="recommendations" class="recommendations hidden">
+                    <div class="recommendations-header">
+            <h2><i class="fas fa-star"></i> Your Personalized Recommendations <i class="fas fa-star"></i></h2>
+            <p>Curated just for you based on your unique profile</p>
+            <div class="quality-rating-trigger">
+                <button class="rate-recommendations-btn" id="rateRecommendationsBtn">
+                    <i class="fas fa-chart-line"></i> Rate Your Experience
+                </button>
+            </div>
+        </div>
+            <div id="recommendationsContent"></div>
+        </div>
+    </div>
+
+    <!-- Virtual Try-On Section -->
+    <section class="virtual-tryon-section">
+        <div class="section-header">
+            <i class="fas fa-camera"></i>
+            <h2>✨ Virtual Makeup Try-On</h2>
+            <p>Upload your photo and see how different makeup looks on you!</p>
+        </div>
+        
+        <div class="tryon-container">
+            <div class="photo-upload-area">
+                <div class="upload-box" id="uploadBox">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Your Photo</h3>
+                    <p>Click to upload or drag and drop your photo here</p>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                    <button class="upload-btn" onclick="document.getElementById('photoInput').click()">
+                        <i class="fas fa-plus"></i> Choose Photo
+                    </button>
+                </div>
+                <div class="photo-preview" id="photoPreview" style="display: none;">
+                    <img id="previewImage" src="" alt="Your photo">
+                    <button class="change-photo-btn" onclick="document.getElementById('photoInput').click()">
+                        <i class="fas fa-edit"></i> Change Photo
+                    </button>
+                </div>
+            </div>
+
+            <div class="makeup-controls">
+                <div class="control-section">
+                    <h4><i class="fas fa-palette"></i> Foundation</h4>
+                    <div class="makeup-options">
+                        <button class="makeup-option" data-category="foundation" data-look="natural">
+                            <span class="option-preview natural-foundation"></span>
+                            Natural
+                        </button>
+                        <button class="makeup-option" data-category="foundation" data-look="full-coverage">
+                            <span class="option-preview full-foundation"></span>
+                            Full Coverage
+                        </button>
+                        <button class="makeup-option" data-category="foundation" data-look="dewy">
+                            <span class="option-preview dewy-foundation"></span>
+                            Dewy
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h4><i class="fas fa-eye"></i> Eyeshadow</h4>
+                    <div class="makeup-options">
+                        <button class="makeup-option" data-category="eyeshadow" data-look="natural">
+                            <span class="option-preview natural-eye"></span>
+                            Natural
+                        </button>
+                        <button class="makeup-option" data-category="eyeshadow" data-look="smokey">
+                            <span class="option-preview smokey-eye"></span>
+                            Smokey
+                        </button>
+                        <button class="makeup-option" data-category="eyeshadow" data-look="colorful">
+                            <span class="option-preview colorful-eye"></span>
+                            Colorful
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h4><i class="fas fa-kiss-wink-heart"></i> Lipstick</h4>
+                    <div class="makeup-options">
+                        <button class="makeup-option" data-category="lipstick" data-look="nude">
+                            <span class="option-preview nude-lip"></span>
+                            Nude
+                        </button>
+                        <button class="makeup-option" data-category="lipstick" data-look="red">
+                            <span class="option-preview red-lip"></span>
+                            Red
+                        </button>
+                        <button class="makeup-option" data-category="lipstick" data-look="pink">
+                            <span class="option-preview pink-lip"></span>
+                            Pink
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h4><i class="fas fa-star"></i> Blush & Highlight</h4>
+                    <div class="makeup-options">
+                        <button class="makeup-option" data-category="blush" data-look="peach">
+                            <span class="option-preview peach-blush"></span>
+                            Peach
+                        </button>
+                        <button class="makeup-option" data-category="blush" data-look="pink">
+                            <span class="option-preview pink-blush"></span>
+                            Pink
+                        </button>
+                        <button class="makeup-option" data-category="blush" data-look="bronze">
+                            <span class="option-preview bronze-blush"></span>
+                            Bronze
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h4><i class="fas fa-magic"></i> Complete Looks</h4>
+                    <div class="makeup-options">
+                        <button class="makeup-option complete-look" data-look="everyday">
+                            <span class="option-preview everyday-look"></span>
+                            Everyday
+                        </button>
+                        <button class="makeup-option complete-look" data-look="glam">
+                            <span class="option-preview glam-look"></span>
+                            Glam
+                        </button>
+                        <button class="makeup-option complete-look" data-look="natural">
+                            <span class="option-preview natural-look"></span>
+                            Natural
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tryon-actions">
+                    <button class="reset-btn" id="resetMakeup">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                    <button class="save-btn" id="saveLook">
+                        <i class="fas fa-download"></i> Save Look
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-preview">
+                <div class="preview-header">
+                    <h3><i class="fas fa-magic"></i> Your Virtual Look</h3>
+                    <p>See how makeup transforms your appearance</p>
+                </div>
+                <div class="preview-container">
+                    <canvas id="previewCanvas" width="400" height="500"></canvas>
+                    <div class="preview-overlay" id="previewOverlay">
+                        <i class="fas fa-image"></i>
+                        <p>Upload a photo to see your virtual makeup look</p>
+                    </div>
+                </div>
+                <div class="look-details" id="lookDetails" style="display: none;">
+                    <h4>Current Look Details</h4>
+                    <div class="look-items" id="lookItems">
+                        <!-- Look details will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendation Quality Rating Modal -->
+    <div id="qualityRatingModal" class="quality-rating-modal">
+        <div class="quality-rating-content">
+            <div class="quality-rating-header">
+                <h3><i class="fas fa-chart-line"></i> Rate Your Experience</h3>
+                <button class="close-modal" id="closeQualityModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="quality-rating-body">
+                <div class="quality-rating-intro">
+                    <i class="fas fa-heart"></i>
+                    <h4>How did our recommendations work for you?</h4>
+                    <p>Help us improve by rating the quality of your personalized recommendations</p>
+                </div>
+                <form id="qualityRatingForm">
+                    <div class="rating-categories">
+                        <div class="rating-category">
+                            <label>Overall Recommendation Quality:</label>
+                            <div class="star-rating quality-rating">
+                                <input type="radio" name="overallQuality" value="5" id="overall5">
+                                <label for="overall5"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="overallQuality" value="4" id="overall4">
+                                <label for="overall4"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="overallQuality" value="3" id="overall3">
+                                <label for="overall3"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="overallQuality" value="2" id="overall2">
+                                <label for="overall2"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="overallQuality" value="1" id="overall1">
+                                <label for="overall1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                        
+                        <div class="rating-category">
+                            <label>Product Relevance:</label>
+                            <div class="star-rating quality-rating">
+                                <input type="radio" name="productRelevance" value="5" id="relevance5">
+                                <label for="relevance5"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="productRelevance" value="4" id="relevance4">
+                                <label for="relevance4"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="productRelevance" value="3" id="relevance3">
+                                <label for="relevance3"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="productRelevance" value="2" id="relevance2">
+                                <label for="relevance2"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="productRelevance" value="1" id="relevance1">
+                                <label for="relevance1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                        
+                        <div class="rating-category">
+                            <label>Budget Appropriateness:</label>
+                            <div class="star-rating quality-rating">
+                                <input type="radio" name="budgetFit" value="5" id="budget5">
+                                <label for="budget5"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="budgetFit" value="4" id="budget4">
+                                <label for="budget4"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="budgetFit" value="3" id="budget3">
+                                <label for="budget3"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="budgetFit" value="2" id="budget2">
+                                <label for="budget2"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="budgetFit" value="1" id="budget1">
+                                <label for="budget1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                        
+                        <div class="rating-category">
+                            <label>Would you recommend Beauta to others?</label>
+                            <div class="recommendation-options">
+                                <label class="recommendation-option">
+                                    <input type="radio" name="recommendToOthers" value="yes">
+                                    <span class="option-text">Yes, definitely!</span>
+                                </label>
+                                <label class="recommendation-option">
+                                    <input type="radio" name="recommendToOthers" value="maybe">
+                                    <span class="option-text">Maybe</span>
+                                </label>
+                                <label class="recommendation-option">
+                                    <input type="radio" name="recommendToOthers" value="no">
+                                    <span class="option-text">No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="qualityFeedback">Additional Feedback (optional):</label>
+                        <textarea id="qualityFeedback" placeholder="Tell us what we did well and how we can improve..." rows="4"></textarea>
+                    </div>
+                    
+                    <div class="quality-rating-actions">
+                        <button type="button" class="skip-rating" id="skipQualityRating">Skip</button>
+                        <button type="submit" class="submit-quality-rating">Submit Rating</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="review-modal">
+        <div class="review-modal-content">
+            <div class="review-modal-header">
+                <h3><i class="fas fa-star"></i> Write a Review</h3>
+                <button class="close-modal" id="closeReviewModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="review-modal-body">
+                <div class="product-review-info">
+                    <img id="reviewProductImage" src="" alt="Product">
+                    <div class="product-review-details">
+                        <h4 id="reviewProductName"></h4>
+                        <p id="reviewProductCategory"></p>
+                    </div>
+                </div>
+                <form id="reviewForm">
+                    <div class="rating-section">
+                        <label>Overall Rating:</label>
+                        <div class="star-rating">
+                            <input type="radio" name="rating" value="5" id="star5">
+                            <label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="4" id="star4">
+                            <label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="3" id="star3">
+                            <label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="2" id="star2">
+                            <label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" name="rating" value="1" id="star1">
+                            <label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewTitle">Review Title:</label>
+                        <input type="text" id="reviewTitle" placeholder="Summarize your experience..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewText">Your Review:</label>
+                        <textarea id="reviewText" placeholder="Share your thoughts about this product..." rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewerName">Your Name (optional):</label>
+                        <input type="text" id="reviewerName" placeholder="Anonymous">
+                    </div>
+                    <div class="review-actions">
+                        <button type="button" class="cancel-review" id="cancelReview">Cancel</button>
+                        <button type="submit" class="submit-review">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-heart"></i> Made with Love</h4>
+                <p>Your beauty journey starts here</p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-shield-alt"></i> Safe & Secure</h4>
+                <p>Your data is protected</p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-mobile-alt"></i> Mobile Friendly</h4>
+                <p>Works perfectly on all devices</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Makeup Match. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
